@@ -22,6 +22,9 @@ const argv = program.opts();
 const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
     case "list":
+      if (!(await listContacts())) {
+        return console.error("There are no contacts!");
+      }
       console.table(await listContacts());
       break;
 
