@@ -22,30 +22,20 @@ const argv = program.opts();
 const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
     case "list":
-      const contactsList = await listContacts();
-      console.table(contactsList);
+      console.table(await listContacts());
       break;
 
     case "get":
-      if (!id) return console.error("Please, enter the contact id!");
-      const receivedContact = await getContactById(id);
-      console.log(receivedContact);
+      console.log(await getContactById(id));
       break;
 
     case "add":
-      if (!name || !email || !phone)
-        return console.error(
-          "Please, enter the contact information (name/email/phone)"
-        );
-      const contactsWithAddedOne = await addContact(name, email, phone);
-      console.table(contactsWithAddedOne);
+      console.table(await addContact(name, email, phone));
       break;
 
     case "remove":
-      if (!id) return console.error("Please, enter the contact id");
       await removeContact(id);
-      const newListContacts = await listContacts();
-      console.table(newListContacts);
+      console.table(await listContacts());
       break;
 
     default:
